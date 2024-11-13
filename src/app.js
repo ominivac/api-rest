@@ -1,15 +1,12 @@
-const express = require('express')
+import express from 'express'
+
 const app = express()
-const port = 3000
+
 
 //criar rota padrão
-
 app.get('/', (req, res) => {
   res.send('curso de nodejs')
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
 
-//criar rota para listar todos os usuários
+export default app
