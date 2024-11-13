@@ -5,7 +5,7 @@ const port = 3000
 //criar rota padrão
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('curso de nodejs')
 })
 
 app.listen(port, () => {
