@@ -13,11 +13,20 @@ const selecoes = [
   { id: 4, nome: 'Seleção D' },
 ]
 
+function buscarSelecaoPorId(id) {
+  return selecoes.filter(selecao => selecao.id == id)
+}
 
 //criar rota padrão
 app.get('/', (req, res) => {
   res.send('curso de nodejs')
 })
+
+app.get('/selecoes/:id', (req, res) => {
+  let index = req.params.id
+  res.json(buscarSelecaoPorId(req.params.id))
+})
+
 
 app.get('/selecoes', (req, res) => {
   res.status(200).send(selecoes)
