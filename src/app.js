@@ -1,17 +1,12 @@
 import express from 'express'
+import conexao  from '../infra/conexao.js'
 
 const app = express()
 
 //indicar para o expresse ler body com json
 app.use(express.json())
 
-//mock
-const selecoes = [
-  { id: 1, nome: 'Seleção A' },
-  { id: 2, nome: 'Seleção B' },
-  { id: 3, nome: 'Seleção C' },
-  { id: 4, nome: 'Seleção D' },
-]
+
 
 function buscarSelecaoPorId(id) {
   return selecoes.filter(selecao => selecao.id == id)
@@ -22,19 +17,24 @@ function buscarIndexSelecao(id) {
   return selecoes.findIndex(selecao => selecao.id == id)
 }
 
-
-//criar rota padrão
-app.get('/', (req, res) => {
-  res.send('curso de nodejs')
+app.get('/selecoes', (req, res) => {
+ // res.status(200).send(selecoes)
+  const sql = 'SELECT * FROM selecoes;'
+  conexao.query(sql, ( error, result,) => {
+    if (error) {
+      console.log(error)
+      res.status(404).json({'Erro': 'dadosnão encontrados'})
+    }else {
+      res.status(200).json(result)
+    }
+   
+  })
 })
 
 app.get('/selecoes/:id', (req, res) => {
   res.json(buscarSelecaoPorId(req.params.id))
 })
 
-app.get('/selecoes', (req, res) => {
-  res.status(200).send(selecoes)
-})
 
 app.post('/selecoes', (req, res) => {
  selecoes.push(req.body)
