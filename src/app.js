@@ -32,7 +32,17 @@ app.get('/selecoes', (req, res) => {
 })
 
 app.get('/selecoes/:id', (req, res) => {
-  res.json(buscarSelecaoPorId(req.params.id))
+  const id = parseInt(req.params.id)
+  const sql = 'SELECT * FROM selecoes WHERE id=?;'
+  conexao.query(sql, id,( error, result,) => {
+    if (error) {
+      console.log(error)
+      res.status(404).json({'Erro': 'dados não encontrados'})
+    }else {
+      res.status(200).json(result)
+    }
+   
+  })
 })
 
 
