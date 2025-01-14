@@ -3,7 +3,16 @@ import conexao from "../database/conexao.js"
 class SelecaoRepository {
 
     //CRUD methods
-    create(){}
+    create(selecao){
+        const sql = "INSERT INTO selecoes SET ?;"
+        return new Promise((resolve, reject) => {
+            conexao.query(sql, selecao, (error, result) => {
+                if (error) reject("não foi possível cadastar")
+                const  row = JSON.parse(JSON.stringify(result))
+                return resolve(row)
+            })
+        })
+    }
 
     findAll(){
         const sql = 'SELECT * FROM selecoes;'

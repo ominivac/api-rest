@@ -16,17 +16,10 @@ class SelecaoController {
       res.json(row)
     }
 
-    store(req, res) {
-        const selecao = req.body
-        const sql = "INSERT INTO selecoes SET ?;"
-        conexao.query(sql, selecao,( error, result,) => {
-          if (error) {
-            console.log(error)
-            res.status(404).json({'Erro': 'dados não encontrados'})
-          }else {
-            res.status(201).json(result)
-          }
-        })
+    async store(req, res) {
+      const selecao = req.body
+      const  row = await SelecaoRepository.create(selecao)
+      res.json(row)
     }
 
     update(req, res) {
