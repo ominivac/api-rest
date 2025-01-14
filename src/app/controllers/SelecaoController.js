@@ -1,3 +1,5 @@
+import conexao from '../database/conexao.js'
+
 class SelecaoController {
 
     index(req, res) {
@@ -5,7 +7,7 @@ class SelecaoController {
         conexao.query(sql, ( error, result,) => {
           if (error) {
             console.log(error)
-            res.status(404).json({'Erro': 'dadosnão encontrados'})
+            res.status(404).json({'Erro': 'dados não encontrados'})
           }else {
             res.status(200).json(result)
           }
@@ -37,14 +39,6 @@ class SelecaoController {
             res.status(201).json(result)
           }
         })
-
-        
-    update(req, res) {}
-
-    delete(req, res) {}
-
-
-
     }
 
     update(req, res) {
@@ -72,6 +66,6 @@ class SelecaoController {
       })
     }
 
-
+}
 //padrão singleton
 export default new SelecaoController()
