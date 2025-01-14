@@ -1,17 +1,11 @@
 import conexao from '../database/conexao.js'
+import SelecaoRepository from '../repository/SelecaoRepository.js'
 
 class SelecaoController {
 
-    index(req, res) {
-        const sql = 'SELECT * FROM selecoes;'
-        conexao.query(sql, ( error, result,) => {
-          if (error) {
-            console.log(error)
-            res.status(404).json({'Erro': 'dados não encontrados'})
-          }else {
-            res.status(200).json(result)
-          }
-        })
+    async index(req, res) {
+        const row = await SelecaoRepository.findAll()
+        res.json(row)
     }
 
     show(req, res) {
