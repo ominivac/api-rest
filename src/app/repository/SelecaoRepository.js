@@ -36,8 +36,27 @@ class SelecaoRepository {
         })
         
     }
-    update(){}
-    delete(){}
+    update(selecao, id){
+        const sql = 'UPDATE selecoes SET ? FROM selecoes WHERE id=?;'
+        return new Promise((resolve, reject) => {
+            conexao.query(sql, [selecao,id], (erro, result) => {
+                if (erro) reject("não foi possível editar a seleção")
+                const  row = JSON.parse(JSON.stringify(result))
+                return resolve(row)
+            })
+        })
+    }
+
+    delete(id){
+        const sql = 'DELETE FROM selecoes WHERE id=?;'
+        return new Promise((resolve, reject) => {
+            conexao.query(sql, id, (erro, result) => {
+                if (erro) reject("não foi possível apagar a seleção")
+                const  row = JSON.parse(JSON.stringify(result))
+                return resolve(row)
+            })
+        })
+    }
 
 
 }

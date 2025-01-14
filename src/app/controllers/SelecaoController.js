@@ -22,29 +22,18 @@ class SelecaoController {
       res.json(row)
     }
 
-    update(req, res) {
+    async update(req, res) {
       const id = req.params.id
       const selecao = req.body
-      const sql = 'UPDATE selecoes SET ? FROM selecoes WHERE id=?;'
-      conexao.query(sql, [selecao, id],( error, result) => {
-        if (error) {
-          res.status(404).json({'Erro': error})
-        }else {
-          res.status(200).send('seleção deletada com sucesso')
-        }
-      })
+
+      const row = await SelecaoRepository.update(selecao, id)
+      res.json(row)
     }
 
-    delete(req, res) {
+    async delete(req, res) {
       const id = parseInt(req.params.id)
-      const sql = 'DELETE FROM selecoes WHERE id=?;'
-      conexao.query(sql, id,( error, result) => {
-        if (error) {
-          res.status(404).json({'Erro': error})
-        }else {
-          res.status(200).send('seleção deletada com sucesso')
-        }
-      })
+      const row = await SelecaoRepository.delete(id)
+      res.json(row)
     }
 
 }
