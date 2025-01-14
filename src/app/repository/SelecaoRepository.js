@@ -10,16 +10,23 @@ class SelecaoRepository {
         return new Promise((resolve, reject) => {
             conexao.query(sql, (error, result) => {
                 if (error) reject("não foi possível localizar")
-
                 const  row = JSON.parse(JSON.stringify(result))
                 return resolve(row)
             })
         })
     }
 
-
-
-    findById(){}
+    findById(id){
+        const sql = 'SELECT * FROM selecoes WHERE id=?;'
+        return new Promise((resolve, reject) => {
+            conexao.query(sql,id, (erro, result) => {
+                if (erro) reject("não foi possível localizar")
+                const  row = JSON.parse(JSON.stringify(result))
+                return resolve(row)
+            })
+        })
+        
+    }
     update(){}
     delete(){}
 

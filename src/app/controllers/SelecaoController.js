@@ -3,23 +3,17 @@ import SelecaoRepository from '../repository/SelecaoRepository.js'
 
 class SelecaoController {
 
+  //lista todos
     async index(req, res) {
         const row = await SelecaoRepository.findAll()
         res.json(row)
     }
 
-    show(req, res) {
-        const id = parseInt(req.params.id)
-        const sql = 'SELECT * FROM selecoes WHERE id=?;'
-        conexao.query(sql, id,( error, result,) => {
-          const linha = result[0]
-          if (error) {
-            console.log(error)
-            res.status(404).json({'Erro': 'dados não encontrados'})
-          }else {
-            res.status(200).json(linha)
-          }
-        })
+    //Listar por id
+    async show(req, res) {
+      const id = req.params.id
+      const row = await SelecaoRepository.findById(id)
+      res.json(row)
     }
 
     store(req, res) {
